@@ -186,10 +186,10 @@
                               <Component id="chk1" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="chk2" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="txtodc" pref="77" max="32767" attributes="0"/>
                               <Component id="txtbalcony" max="32767" attributes="0"/>
-                              <Component id="txtodc" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -197,9 +197,9 @@
                               <Component id="chk3" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="chk4" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtbox" max="32767" attributes="0"/>
+                              <Component id="txtbox" pref="77" max="32767" attributes="0"/>
                               <Component id="txtsbalcony" max="32767" attributes="0"/>
                           </Group>
                       </Group>

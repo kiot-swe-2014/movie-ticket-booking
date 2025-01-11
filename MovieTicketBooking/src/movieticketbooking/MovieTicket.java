@@ -125,17 +125,17 @@ public class MovieTicket extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(chk1)
                             .addComponent(chk2))
-                        .addGap(62, 62, 62)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtbalcony)
-                            .addComponent(txtodc)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtodc, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
+                            .addComponent(txtbalcony)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(chk3)
                             .addComponent(chk4))
-                        .addGap(32, 32, 32)
+                        .addGap(19, 19, 19)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtbox)
+                            .addComponent(txtbox, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
                             .addComponent(txtsbalcony))))
                 .addGap(14, 14, 14))
         );
@@ -308,68 +308,97 @@ public class MovieTicket extends javax.swing.JFrame {
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
         int sum = 0;
-        int price;
-        int qty;
-        int tot;
-        
-        
-        if(chk1.isSelected()){
-            String odc = chk1.getText();
-            price = 300;
-            qty = Integer.parseInt(txtodc.getValue().toString());
-            tot = price * qty;
-            model = (DefaultTableModel)jTable1.getModel();
-            model.addRow(new Object[]{
-                odc,
-                price,
-                qty,
-                tot
-            });
+    int price;
+    int qty;
+    int tot;
+    boolean isValid = false; // Flag to check if at least one valid selection is made
+
+    if (chk1.isSelected()) {
+        qty = Integer.parseInt(txtodc.getValue().toString());
+        if (qty <= 0) {
+            JOptionPane.showMessageDialog(this, "Amount for ODC cannot be zero or negative!", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-        if(chk2.isSelected()){
-            String balcony = chk2.getText();
-            price = 350;
-            qty = Integer.parseInt(txtbalcony.getValue().toString());
-            tot = price * qty;
-            model = (DefaultTableModel)jTable1.getModel();
-            model.addRow(new Object[]{
-                balcony,
-                price,
-                qty,
-                tot
-            });
+        String odc = chk1.getText();
+        price = 300;
+        tot = price * qty;
+        model = (DefaultTableModel) jTable1.getModel();
+        model.addRow(new Object[]{
+            odc,
+            price,
+            qty,
+            tot
+        });
+        isValid = true;
+    }
+
+    if (chk2.isSelected()) {
+        qty = Integer.parseInt(txtbalcony.getValue().toString());
+        if (qty <= 0) {
+            JOptionPane.showMessageDialog(this, "Amount for Balcony cannot be zero or negative!", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-        if(chk3.isSelected()){
-            String box = chk3.getText();
-            price = 400;
-            qty = Integer.parseInt(txtbox.getValue().toString());
-            tot = price * qty;
-            model = (DefaultTableModel)jTable1.getModel();
-            model.addRow(new Object[]{
-                box,
-                price,
-                qty,
-                tot
-            });
+        String balcony = chk2.getText();
+        price = 350;
+        tot = price * qty;
+        model = (DefaultTableModel) jTable1.getModel();
+        model.addRow(new Object[]{
+            balcony,
+            price,
+            qty,
+            tot
+        });
+        isValid = true;
+    }
+
+    if (chk3.isSelected()) {
+        qty = Integer.parseInt(txtbox.getValue().toString());
+        if (qty <= 0) {
+            JOptionPane.showMessageDialog(this, "Amount for Box cannot be zero or negative!", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-        if(chk4.isSelected()){
-            String superbalcony = chk4.getText();
-            price = 500;
-            qty = Integer.parseInt(txtsbalcony.getValue().toString());
-            tot = price * qty;
-            model = (DefaultTableModel)jTable1.getModel();
-            model.addRow(new Object[]{
-                superbalcony,
-                price,
-                qty,
-                tot
-            });
+        String box = chk3.getText();
+        price = 400;
+        tot = price * qty;
+        model = (DefaultTableModel) jTable1.getModel();
+        model.addRow(new Object[]{
+            box,
+            price,
+            qty,
+            tot
+        });
+        isValid = true;
+    }
+
+    if (chk4.isSelected()) {
+        qty = Integer.parseInt(txtsbalcony.getValue().toString());
+        if (qty <= 0) {
+            JOptionPane.showMessageDialog(this, "Amount for Super Balcony cannot be zero or negative!", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-        for(int i=0; i < jTable1.getRowCount();i++)
-        {
-           sum = sum + Integer.parseInt(jTable1.getValueAt(i,3).toString()); 
-        }
-        txtsub.setText(String.valueOf(sum));
+        String superbalcony = chk4.getText();
+        price = 500;
+        tot = price * qty;
+        model = (DefaultTableModel) jTable1.getModel();
+        model.addRow(new Object[]{
+            superbalcony,
+            price,
+            qty,
+            tot
+        });
+        isValid = true;
+    }
+
+    if (!isValid) {
+        JOptionPane.showMessageDialog(this, "You did not select any valid amount!", "Selection Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Calculate the sum of totals
+    for (int i = 0; i < jTable1.getRowCount(); i++) {
+        sum = sum + Integer.parseInt(jTable1.getValueAt(i, 3).toString());
+    }
+    txtsub.setText(String.valueOf(sum));
         
         
     }//GEN-LAST:event_addActionPerformed
@@ -451,17 +480,35 @@ public class MovieTicket extends javax.swing.JFrame {
               
 
     private void pinvoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pinvoiceActionPerformed
+        
         try {
-            int sub = Integer.parseInt(txtsub.getText());
-            int pay = Integer.parseInt(txtpay.getText());
-            int bal = pay - sub;
-            txtbalance.setText(String.valueOf(bal));
-            sales();
-        } catch (SQLException ex) {
-            Logger.getLogger(MovieTicket.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MovieTicket.class.getName()).log(Level.SEVERE, null, ex);
+        String subText = txtsub.getText();
+        String payText = txtpay.getText();
+
+        if (payText.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "You have not entered any money!", "Payment Error", JOptionPane.ERROR_MESSAGE);
+            return; // Exit the method early
         }
+
+        int sub = Integer.parseInt(subText);
+        int pay = Integer.parseInt(payText);
+
+        if (pay < sub) {
+            JOptionPane.showMessageDialog(this, "You have not entered enough money!", "Payment Error", JOptionPane.ERROR_MESSAGE);
+            return; // Exit the method early
+        }
+
+        int bal = pay - sub;
+        txtbalance.setText(String.valueOf(bal));
+        sales();
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Invalid input! Please enter valid numbers.", "Input Error", JOptionPane.ERROR_MESSAGE);
+    } catch (SQLException ex) {
+        Logger.getLogger(MovieTicket.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(MovieTicket.class.getName()).log(Level.SEVERE, null, ex);
+    }
+
     }//GEN-LAST:event_pinvoiceActionPerformed
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
